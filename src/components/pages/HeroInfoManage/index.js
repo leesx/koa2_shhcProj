@@ -1,8 +1,8 @@
 /*
  * @Author: leesx
  * @Date: 2017-07-06 11:03:22
- * @Last Modified by:   leesx
- * @Last Modified time: 2017-07-06 11:03:22
+ * @Last Modified by: leesx
+ * @Last Modified time: 2017-11-30 16:28:11
  */
 
 import React, {Component} from 'react';
@@ -19,10 +19,9 @@ const RadioButton = Radio.Button;
 const RadioGroup  = Radio.Group;
 const TabPane     = Tabs.TabPane;
 
-import {myAxios} from 'utils'
-import HeroList from './HeroList'
-import CreateFormBox from './Create'
-
+import {myAxios} from 'utils';
+import HeroList from './HeroList';
+import CreateFormBox from './Create';
 
 
 function RenderPagePane(props){
@@ -53,10 +52,20 @@ export default class HeroInfoManage extends Component {
 				pageStatus:'2',
 				editID:id,
 			})
-		}
+        }
+        
+        handleClickBackList=()=>{
+            this.setState({
+				pageStatus:'0',
+			})
+        }
 
     render() {
-        const {pageStatus,editID} = this.state
+        const {pageStatus,editID} = this.state;
+        const popStyle = {
+            height:pageStatus === '1' ? 1300 :0,
+            transform:`translateY(${pageStatus === '1' ? -710 : 0}px)`
+        }
         return (
             <div>
 
@@ -71,7 +80,14 @@ export default class HeroInfoManage extends Component {
                     </RadioGroup>
                 </div>
                 <div className="leftpane-section-body">
-									<RenderPagePane status={pageStatus} handleEditList={this.handleEditList} editID={editID} />
+                    <HeroList handleEditList={this.handleEditList} />
+                    <div className="edit-pop-pane" style={popStyle}>
+                        <div>
+                            <Icon type="rollback" onClick={this.handleClickBackList} />
+                            <h4>添加英雄信息</h4>
+                        </div>
+                        <CreateFormBox />
+                    </div>
                 </div>
 
 
