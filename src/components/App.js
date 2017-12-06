@@ -4,7 +4,7 @@ import {fromJS}  from 'Immutable'
 import pureRender from "pure-render-decorator";
 import {Layout, Icon, Dropdown} from 'antd';
 const {Header, Sider, Content} = Layout;
-import axios from 'axios';
+import {myAxios} from 'utils';
 
 import AppHeader from './pages/common/AppHeader';
 import UserMenu from './pages/common/UserMenu';
@@ -18,13 +18,27 @@ export default class App extends Component {
         super(props)
         this.state = {
             tabActiveKey: 'home',
-            panesItem   : {}
+            panesItem   : {},
+            userInfo:{},
         };
     }
 
 
     componentDidMount() {
         this.createTabPane()
+        this.fetchUserInfo()
+    }
+    fetchUserInfo(){
+        myAxios.get('/api/getUserInfo').then(data=>{
+            console.log(data)
+            if(data.rs === 'ok'){
+                this.setState({
+                    userInfo:data.data
+                })
+            }else{
+                location.href="/login"
+            }
+        })
     }
 
     createTabPane() {
@@ -69,12 +83,12 @@ export default class App extends Component {
     // }
 
     render() {
-        const {panesItem, tabActiveKey} = this.state
+        const {panesItem, tabActiveKey,userInfo} = this.state
 
         return (
             <div className="yunpad-layout">
                 <Layout>
-                    <AppHeader />
+                    <AppHeader { ...userInfo} />
                     <Layout>
 
                         <Sider

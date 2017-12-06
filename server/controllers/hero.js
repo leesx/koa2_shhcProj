@@ -6,13 +6,14 @@ const path = require('path');
 const formidable = require('formidable');
 
 const {db, ObjectID}  =require('./../common/db');
-const {getFormatTime} =require('./../utils/utils');
+const {getFormatTime,uploadFile,upToQiniu,removeTemImage} =require('./../utils/utils');
 const moment = require('moment')
 
 const Heroes = db.collection('heroes');
-exports.getHeroList = async(ctx) => {
+exports.getHeroList = async (ctx) => {
+    console.log('session2====',ctx.session)
     const {currentPage = 0, pageSize = 5, id} = ctx.request.body;
-    console.log(ctx.request.body)
+
     //编辑
     if (id) {
 
@@ -250,6 +251,26 @@ exports.removeMusic = async (ctx) => {
         ctx.body = {rs:true,msg:'成功'}
     }else{
         ctx.body = {rs:false,msg:'失败'}
+    }
+
+}
+
+exports.upload = async (ctx) => {
+    const serverPath = path.join(__dirname, '../public/upload')
+    // 获取上存图片
+    const result = await uploadFile(ctx, {
+      fileType: 'album',
+      path: serverPath
+    })
+		console.log(result)
+    const imgPath = path.join(serverPath, result.imgPath)
+    // 上传到七牛
+    const qiniu = await upToQiniu(imgPath, result.imgKey)
+    // 上存到七牛之后 删除原来的缓存图片
+    removeTemImage(imgPath)
+		console.log('end',qiniu)
+    ctx.body = {
+      imgUrl: `http://ok2krz5mp.bkt.clouddn.com/${qiniu.key}`
     }
 
 }

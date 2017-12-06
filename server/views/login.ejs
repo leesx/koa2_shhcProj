@@ -1,0 +1,19 @@
+<% include ./common/header %>
+<div class="container">
+
+    <form class="form-signin" id="loginForm2" method="post" action="/user/login">
+        <h2 class="form-signin-heading">欢迎登录</h2>
+        <label for="inputEmail" class="sr-only">用户名</label>
+        <input type="text" name="userName" class="form-control" placeholder="请输入用户名" required autofocus>
+        <label for="inputPassword" class="sr-only">请输入密码</label>
+        <input type="password" name="pwd" class="form-control" placeholder="请输入密码" required>
+        <!--<div class="checkbox">-->
+            <!--<label>-->
+                <!--<input type="checkbox" value="remember-me"> Remember me-->
+            <!--</label>-->
+        <!--</div>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+<% include ./common/footer %>

@@ -1,6 +1,6 @@
 /*
- * @Author: leesx 
- * @Date: 2017-07-06 11:02:34 
+ * @Author: leesx
+ * @Date: 2017-07-06 11:02:34
  * @Last Modified by: leesx
  * @Last Modified time: 2017-07-06 15:01:20
  */
@@ -37,16 +37,23 @@ export default class AppHeader extends Component{
                 </Link>
               </div>
               <div className="site-link">
-                <a><Icon type="bell" />消息下载</a>
-                <a><Icon type="download" />产品下载</a>
+                {this.renderInfo()}
                 <a><Icon type="question-circle" />帮助中心</a>
-                <Dropdown overlay={menu}>
-                  <a className="ant-dropdown-link" href="#">
-                    移动版 <Icon type="down" />
-                  </a>
-                </Dropdown>
               </div>
           </Header>
         )
     }
+    renderInfo(){
+			const {userName} = this.props;
+			if(userName){
+				return <span>{userName},欢迎回来.<span>|</span><a href="/user/logout">退出</a></span>
+			}else{
+				return (
+					<span>
+						<a href="/reg"><Icon type="user" />注册</a>
+						<a href="/login"><Icon type="login" />登录</a>
+					</span>
+				)
+			}
+		}
 }

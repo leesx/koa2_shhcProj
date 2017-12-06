@@ -3,6 +3,7 @@
  */
 
 const fs = require('fs');
+const Store = require('./../config/Store')
 function renderHtml() {
     return `
 		<!doctype html>
@@ -35,6 +36,11 @@ function renderHtml() {
 
 module.exports = async(ctx) => {
     const title = 'home';
+
+    console.log('--->',ctx.session.userName)
+    if(!ctx.session.userName){
+        ctx.redirect('/login')
+    }
     try {
         const html = process.env.NODE_ENV === 'development'
             ? renderHtml()

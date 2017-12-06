@@ -11,7 +11,7 @@ const myAxios   = axios.create({
         'Access-Control-Allow-Origin': '*',
         'groupID'                    : config.groupID || '', //自定义groupID;注意:在fetch方法中添加自定义头部,不起作用
     },
-    timeout         : 5 * 1000,
+    timeout         : 60 * 1000,
     method          : 'get', // default
     withCredentials : true, // default
     responseType    : 'json', // default
@@ -20,19 +20,28 @@ const myAxios   = axios.create({
     },
     transformRequest: [function (data) {
         data = Qs.stringify(data);
-        return data;
-    }
+	        return data;
+	    }
     ],
     params          : {
         accessToken: config.accessToken,
         traceID    : config.traceID,
-        paperSize  : config.paperSize || 0,
     },
     cancelToken     : new CancelToken(function executor(c) {
         // An executor function receives a cancel function as a parameter
         cancelRequest = c;
     })
 });
+
+// 添加请求拦截器
+myAxios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+		console.log(config)
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  });
 // 添加响应拦截器
 myAxios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
@@ -50,7 +59,7 @@ myAxios.interceptors.response.use(function (response) {
         message.error(`错误代码:${json.code},错误信息：${json.msg}`, 3)
     } else {
         const msg = error.message;
-        if (msg.match('timeout of 5000ms exceeded')) {
+        if (msg.match('timeout of 60000ms exceeded')) {
             message.error('网络请求超时,请重试', 3)
         } else {
             message.error(`${msg || '哇哦,(⊙﹏⊙)出错了！'}`, 3)
