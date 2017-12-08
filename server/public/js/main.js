@@ -58,4 +58,15 @@ $(function () {
         //return;
     })
 
+		$('#sendMsgBtn').on('click',function(){
+			var phoneNum = $('#phoneNum').val();
+			$.post('/api/sendmsg',{phoneNum:phoneNum},function(data){
+				console.log(data)
+                if(data.rs){
+				    alert('发送成功')
+                }else{
+                    alert('发送失败')
+                }
+			},'json')
+		})
 })

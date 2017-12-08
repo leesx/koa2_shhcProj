@@ -100,6 +100,7 @@
     "webpack-md5-hash": "0.0.5"
   },
   "dependencies": {
+    "@alicloud/sms-sdk": "^1.0.2",
     "aphrodite": "^0.5.0",
     "babel-plugin-antd": "^0.5.1",
     "babel-plugin-css-modules-transform": "^1.2.0",

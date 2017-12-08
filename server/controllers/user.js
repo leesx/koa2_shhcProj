@@ -58,7 +58,7 @@ exports.login = async(ctx) => {
     // })
     const formData = ctx.request.body;
     const isExist = await new Promise((resolve, reject) => {
-        Users.findOne({userName: formData.userName,pwd:formData.pwd}, (err, result) => {
+        Users.findOne({userName: formData.userName, pwd: formData.pwd}, (err, result) => {
             if (err) reject(err)
             resolve(result)
         })
@@ -74,16 +74,16 @@ exports.login = async(ctx) => {
 
 }
 exports.logout = async(ctx) => {
-	delete ctx.session.userName;
-	ctx.redirect('/login')
+    delete ctx.session.userName;
+    ctx.redirect('/login')
 
 }
 exports.getUserInfo = async(ctx) => {
     const {userName} = ctx.session;
-    if(userName){
-        ctx.body = {rs:'ok',data:{userName}}
-    }else{
-        ctx.body = {rs:'no',msg:'登录失效'}
+    if (userName) {
+        ctx.body = {rs: 'ok', data: {userName}}
+    } else {
+        ctx.body = {rs: 'no', msg: '登录失效'}
     }
 
 }

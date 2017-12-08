@@ -6,8 +6,10 @@ const path = require('path');
 const formidable = require('formidable');
 
 const {db, ObjectID}  =require('./../common/db');
+const {sendSMS}  =require('./../common/sendMsg');
 const {getFormatTime,uploadFile,upToQiniu,removeTemImage} =require('./../utils/utils');
 const moment = require('moment')
+const {qiniuHost} = require('./../utils/qiniuConfig')
 
 const Heroes = db.collection('heroes');
 exports.getHeroList = async (ctx) => {
@@ -255,6 +257,38 @@ exports.removeMusic = async (ctx) => {
 
 }
 
+exports.getPhotoList = async (ctx)=>{
+    const result = await new Promise((resolve,reject)=>{
+        db.collection('photoAlbum').find({}).sort({_id:-1}).toArray((err,result)=>{
+            if(err) reject(err)
+            resolve(result)
+        })
+    });
+
+    ctx.body = {
+        rs:true,
+        data:result
+    }
+}
+exports.removePhoto = async (ctx)=>{
+    const {id} = ctx.request.body;
+    const rs = await new Promise((resolve,reject)=>{
+        db.collection('photoAlbum').remove({_id:ObjectID(id)},(err,result)=>{
+            if(err) reject(err)
+            resolve(true)
+        })
+    });
+
+    if(rs){
+      ctx.body = {
+          rs:true
+      }
+    }else{
+      ctx.body = {
+          rs:false
+      }
+    }
+}
 exports.upload = async (ctx) => {
     const serverPath = path.join(__dirname, '../public/upload')
     // 获取上存图片
@@ -269,8 +303,38 @@ exports.upload = async (ctx) => {
     // 上存到七牛之后 删除原来的缓存图片
     removeTemImage(imgPath)
 		console.log('end',qiniu)
-    ctx.body = {
-      imgUrl: `http://ok2krz5mp.bkt.clouddn.com/${qiniu.key}`
+    const imgUrl= `${qiniuHost}${qiniu.key}`;
+    const rs = await new Promise((resolve,reject)=>{
+        db.collection('photoAlbum').insert({
+            url:imgUrl
+        },(err,resulst)=>{
+            if(err) reject(err)
+            resolve(true)
+        })
+    })
+    if(rs){
+        ctx.body = {
+            imgUrl
+        }
+    }else{
+        ctx.body = null;
     }
+}
+
+exports.sendmsg = async (ctx)=>{
+	console.log(ctx.request.body)
+	const {phoneNum} = ctx.request.body
+  const rs = await sendSMS(phoneNum)
+	console.log('rs==========>',rs)
+	if(rs.Code === 'OK'){
+		ctx.body = {
+			rs:true
+		}
+	}else{
+		ctx.body = {
+			rs:false,
+			code:rs.code
+		}
+	}
 
 }

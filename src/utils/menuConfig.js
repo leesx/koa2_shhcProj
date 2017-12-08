@@ -14,7 +14,7 @@ const menuConfig = [{
         path : 'shuihu/music/list',
         key  : 'music',
     }, {
-        title: '水浒故事管理',
+        title: '水浒图片管理',
         path : 'shuihu/story/list',
         key  : 'story',
     }]

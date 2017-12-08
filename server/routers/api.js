@@ -18,7 +18,10 @@ const routers = router
     .post('/removeMusic', heroInfoController.removeMusic)
     .post('/reg',userController.reg)
     .get('/getUserInfo',userController.getUserInfo)
+    .get('/getPhotoList',heroInfoController.getPhotoList)
+    .post('/removePhoto',heroInfoController.removePhoto)
     .post('/upload',heroInfoController.upload)
+    .post('/sendmsg',heroInfoController.sendmsg)
 
 
 module.exports = routers
