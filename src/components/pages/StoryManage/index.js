@@ -7,8 +7,20 @@
 import React, {Component} from "react";
 import {Button,Card} from 'antd';
 import {SVGIcon} from "components/common";
+import {html, render} from 'lit-html';
 import {myAxios} from "utils";
 const { Meta } = Card;
+
+// This is a lit-html template function. It returns a lit-html template.
+const helloTemplate = (name) => html`<div>Hello ${name}!</div>`;
+
+// Call the function with some data, and pass the result to render()
+
+// This renders <div>Hello Steve!</div> to the document body
+//render(helloTemplate('Steve'), document.body);
+
+// This updates to <div>Hello Kevin!</div>, but only updates the ${name} part
+//render(helloTemplate('Kevin'), document.body);
 
 export default class StoryManage extends Component {
     state = {
@@ -19,6 +31,7 @@ export default class StoryManage extends Component {
 
     componentDidMount(){
         this.fetchPhtoList()
+				//render(helloTemplate('Kevin'), document.querySelector('#test'));
     }
 
     fetchPhtoList=()=>{
@@ -80,7 +93,7 @@ export default class StoryManage extends Component {
                     <Button type="primary" icon="upload" onClick={this.handleSubmit}>上传</Button>
                 </div>
 
-
+								<div id="test"></div>
                 <h2>图片列表</h2>
                 <div className="album-list">
                     {

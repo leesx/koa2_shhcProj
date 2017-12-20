@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server:dev": "cross-env  NODE_ENV=development nodemon ./server/app",
-    "server:prod": "cross-env  NODE_ENV=production node ./server/bin/www",
+    "server:prod": "cross-env  NODE_ENV=production nodemon ./server/app",
     "dll:dev": "cross-env NODE_ENV=development webpack --config webpack.config.dll.js",
     "dll:prod": "cross-env NODE_ENV=production webpack --config webpack.config.dll.js",
     "dll": "npm run dll:dev && npm run dll:prod",
@@ -133,6 +133,7 @@
     "koa-session-minimal": "^3.0.4",
     "koa-session2": "^2.2.5",
     "koa-views": "^6.1.2",
+    "lit-html": "^0.7.1",
     "moment": "^2.12.0",
     "mongodb": "^2.2.31",
     "morgan": "^1.8.2",
