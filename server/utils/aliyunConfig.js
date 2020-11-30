@@ -1,5 +1,5 @@
 module.exports = {
-	accessKey:'LTAIvv2qRXKtKVJw',
-	secretKey:'eBls6gJmmIYbLXBV1yUdufDOXYAl76',
+	accessKey:'',
+	secretKey:'eBls6gJmmIYbLXBV1yUdufDOXYAl76_LTAIvv2qRXKtKVJw',
 	TemplateCode:'SMS_116580256',
 }
