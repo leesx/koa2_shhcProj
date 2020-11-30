@@ -22,7 +22,7 @@
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.5",
     "mongoskin": "^2.1.0",
-    "morgan": "~1.7.0",
+    "morgan": "~1.9.1",
     "objectid-to-timestamp": "^1.3.0",
     "serve-favicon": "~2.3.0",
     "sha1": "^1.1.1",
