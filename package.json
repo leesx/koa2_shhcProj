@@ -146,7 +146,7 @@
     "rc-tween-one": "^0.11.9",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-draft-wysiwyg": "^1.10.7",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-fastclick": "^3.0.2-alpha.1",
     "react-lz-editor": "^0.11.0",
     "react-mobile-picker": "^0.1.10",
