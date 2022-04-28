@@ -9,7 +9,7 @@
     "start": "cross-env BABEL_ENV=production NODE_ENV=development nodemon ./bin/www"
   },
   "dependencies": {
-    "async": "^2.1.4",
+    "async": "^2.6.4",
     "body-parser": "^1.15.2",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.3.2",
