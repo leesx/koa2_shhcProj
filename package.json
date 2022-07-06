@@ -134,7 +134,7 @@
     "koa-session2": "^2.2.5",
     "koa-views": "^6.1.2",
     "lit-html": "^0.7.1",
-    "moment": "^2.12.0",
+    "moment": "^2.29.4",
     "mongodb": "^2.2.31",
     "morgan": "^1.8.2",
     "normalizr": "^2.0.0",
