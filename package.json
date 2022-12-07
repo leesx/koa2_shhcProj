@@ -64,7 +64,7 @@
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.23.1",
     "es5-shim": "^4.5.8",
-    "express": "^4.13.4",
+    "express": "^4.17.3",
     "extract-text-webpack-plugin": "^3.0.0-beta.3",
     "figlet": "^1.2.0",
     "file-loader": "^0.11.2",
